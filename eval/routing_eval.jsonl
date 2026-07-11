@@ -1,0 +1,50 @@
+{"text": "customer ne 15 din baad return kiya, accept karna padega kya?", "intent": "policy_query"}
+{"text": "mera payment hold pe hai 20 din se", "intent": "policy_query"}
+{"text": "return claim ka draft bana do order ID MSH12345", "intent": "action_request"}
+{"text": "hi", "intent": "other"}
+{"text": "namaste bhai", "intent": "other"}
+{"text": "safe-t claim kya hota hai", "intent": "policy_query"}
+{"text": "meesho pe rto ka paisa kab milta hai", "intent": "policy_query"}
+{"text": "listing suppress ho gayi hai kaise thik karun", "intent": "policy_query"}
+{"text": "amazon support ko email likh do payment hold ke bare mein", "intent": "action_request"}
+{"text": "thank you so much!", "intent": "other"}
+{"text": "customer ne pehna hua kurta wapas bheja, claim file karna hai", "intent": "action_request"}
+{"text": "what is the return window for clothing on meesho", "intent": "policy_query"}
+{"text": "draft an appeal for my suppressed listing ASIN B0XYZ", "intent": "action_request"}
+{"text": "aaj mausam kaisa hai", "intent": "other"}
+{"text": "kitne din mein payment aata hai delivery ke baad", "intent": "policy_query"}
+{"text": "mera account deactivate kyu hua", "intent": "policy_query"}
+{"text": "ek email likho jisme main apna GST document bhejun", "intent": "action_request"}
+{"text": "wrong product return hua hai kya karun", "intent": "policy_query"}
+{"text": "shukriya bhai", "intent": "other"}
+{"text": "penalty kab lagti hai late dispatch pe", "intent": "policy_query"}
+{"text": "banao claim, order 4456, damaged product mila wapas", "intent": "action_request"}
+{"text": "how do I file a SAFE-T claim", "intent": "policy_query"}
+{"text": "write a dispute for order AMZ-9987, buyer returned empty box", "intent": "action_request"}
+{"text": "hello ji", "intent": "other"}
+{"text": "return window ke baad dispute kaise raise karte hain", "intent": "policy_query"}
+{"text": "settlement report mein deduction kyu dikha raha hai", "intent": "policy_query"}
+{"text": "appeal letter likh do listing ke liye, SKU KURTA-RED-M", "intent": "action_request"}
+{"text": "good morning", "intent": "other"}
+{"text": "kya main customer ko direct contact kar sakta hoon", "intent": "policy_query"}
+{"text": "claim reject ho gaya, ab kya option hai", "intent": "policy_query"}
+{"text": "payment hold email ka draft chahiye, hold since 2 June, amount 15000", "intent": "action_request"}
+{"text": "image policy violation kya hai", "intent": "policy_query"}
+{"text": "ok bye", "intent": "other"}
+{"text": "rto aur customer return mein kya difference hai", "intent": "policy_query"}
+{"text": "likho ek professional email seller support ko mere pending claims ke bare mein", "intent": "action_request"}
+{"text": "gst mismatch se payment ruk sakta hai kya", "intent": "policy_query"}
+{"text": "mujhe joke sunao", "intent": "other"}
+{"text": "brand approval kaise milta hai", "intent": "policy_query"}
+{"text": "unboxing video zaroori hai kya claim ke liye", "intent": "policy_query"}
+{"text": "draft bana do jaldi, order MSH777, fake return", "intent": "action_request"}
+{"text": "what documents do I need for KYC verification", "intent": "policy_query"}
+{"text": "tum kaun ho", "intent": "other"}
+{"text": "weight discrepancy proof kaise submit karun", "intent": "policy_query"}
+{"text": "suppression appeal draft karo error code 5461", "intent": "action_request"}
+{"text": "late claims accept hote hain kya", "intent": "policy_query"}
+{"text": "thanks yaar bahut madad ki", "intent": "other"}
+{"text": "price alert kya hota hai amazon pe", "intent": "policy_query"}
+{"text": "buyer ne serial number badal ke return kiya, claim likho order 88231", "intent": "action_request"}
+{"text": "meesho claim window kitne din ki hoti hai", "intent": "policy_query"}
+{"text": "kaise ho", "intent": "other"}
