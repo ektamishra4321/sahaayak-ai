@@ -1,0 +1,7 @@
+services:
+  bot:
+    build: .
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      - ./data/logs:/app/data/logs   # persist conversation logs across restarts
