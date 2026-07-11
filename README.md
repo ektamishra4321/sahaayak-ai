@@ -69,7 +69,7 @@ python cli.py                   # try it in your terminal
 python main.py                  # go live on Telegram
 ```
 
-Docker: `docker compose up -d --build`. Full runbook in [SETUP.md](SETUP.md). Deep-dive design: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+Docker: `docker compose up -d --build`. Full runbook in [SETUP.md](SETUP.md). Deep-dive design: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Build it yourself: [docs/BUILD_GUIDE.md](docs/BUILD_GUIDE.md).
 
 > ⚠️ **Before real sellers use it:** verify every `[VERIFY]` marker in
 > `corpus/` against the live Supplier Panel / Seller Central. The
