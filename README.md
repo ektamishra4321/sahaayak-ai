@@ -5,6 +5,13 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-pilot-orange)
 
+## 🎬 60-second demo
+
+
+https://github.com/user-attachments/assets/90548d69-6ed2-4f9e-b5fa-81ae4b65cdd9
+
+
+
 **A multi-agent Telegram bot that answers Meesho/Amazon India seller-policy
 questions in Hinglish — with citations — and drafts ready-to-submit return
 claims, payment-hold emails, and listing appeals.**
