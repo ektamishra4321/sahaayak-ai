@@ -1,9 +1,9 @@
 # 🛍️ SahaayakAI — AI Support Agent for Indian E-commerce Sellers
 
-!\[Python](https://img.shields.io/badge/python-3.10%2B-blue)
-!\[Tests](https://img.shields.io/badge/tests-19%20passing-brightgreen)
-!\[License](https://img.shields.io/badge/license-MIT-green)
-!\[Status](https://img.shields.io/badge/status-pilot-orange)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![CI](https://github.com/ektamishra4321/sahaayak-ai/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-pilot-orange)
 
 **A multi-agent Telegram bot that answers Meesho/Amazon India seller-policy
 questions in Hinglish — with citations — and drafts ready-to-submit return
