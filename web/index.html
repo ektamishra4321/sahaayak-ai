@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SahaayakAI — Seller ka apna support assistant</title>
+<meta name="description" content="Meesho & Amazon India sellers ke policy sawaalon ke jawab — Hinglish mein, citation ke saath. Live try karo, abhi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14225A; --ink-2:#1E2F73; --paper:#F7F6F0; --line:#E4E1D4;
+  --marigold:#EFA13A; --marigold-deep:#D98A1F; --alert:#D9482B;
+  --white:#FFFFFF; --ink-soft:#3D4A85; --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Karla',sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+nav{background:var(--ink);color:var(--white);position:sticky;top:0;z-index:50}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1080px;margin:0 auto}
+.logo{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.35rem}
+.logo .dot{color:var(--marigold)}
+.btn{display:inline-block;font-family:'Baloo 2',sans-serif;font-weight:700;text-decoration:none;
+  background:var(--marigold);color:var(--ink);padding:10px 22px;border-radius:999px;border:none;cursor:pointer;
+  transition:transform .15s ease, background .15s ease;font-size:1rem}
+.btn:hover{background:#F6B558;transform:translateY(-1px)}
+.btn:focus-visible{outline:3px solid var(--white);outline-offset:2px}
+.btn.big{font-size:1.12rem;padding:14px 32px}
+
+header{background:var(--ink);color:var(--white);overflow:hidden}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:64px 24px 80px;max-width:1080px;margin:0 auto}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--marigold);margin-bottom:16px}
+h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.12;margin-bottom:18px}
+h1 em{font-style:normal;color:var(--marigold)}
+.hero p.sub{font-size:1.1rem;color:#C9D0EE;max-width:44ch;margin-bottom:26px}
+.live-dot{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:#9fe6b0}
+.live-dot i{width:8px;height:8px;border-radius:50%;background:#39d46a;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@media (prefers-reduced-motion: reduce){.live-dot i{animation:none}}
+
+/* live chat */
+.phone{background:#0E1840;border:1px solid #2A3B87;border-radius:26px;padding:16px 14px;max-width:420px;width:100%;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);margin-left:auto;display:flex;flex-direction:column}
+.phone-top{display:flex;align-items:center;gap:10px;padding:4px 6px 12px;border-bottom:1px solid #23336F}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--marigold);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800}
+.phone-top .name{font-weight:700;font-size:.95rem}
+.phone-top .status{font-size:.72rem;color:#8FA0DB}
+.chat{padding:14px 4px;display:flex;flex-direction:column;gap:10px;height:380px;overflow-y:auto;scroll-behavior:smooth}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:.86rem;line-height:1.55;white-space:pre-wrap;word-wrap:break-word}
+.msg.seller{align-self:flex-end;background:var(--marigold);color:var(--ink);border-bottom-right-radius:4px;font-weight:500}
+.msg.bot{align-self:flex-start;background:#FFFFFF;color:var(--ink);border-bottom-left-radius:4px}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;background:#FFF;border-radius:14px;border-bottom-left-radius:4px}
+.typing i{width:6px;height:6px;border-radius:50%;background:#9AA6D8;animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes blink{0%,70%,100%{opacity:.25}35%{opacity:1}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:8px 4px 0}
+.chip-btn{font-family:'Karla',sans-serif;font-size:.76rem;background:#1B2C6E;color:#C9D0EE;border:1px solid #33449A;
+  border-radius:999px;padding:6px 12px;cursor:pointer}
+.chip-btn:hover{background:#24377F;color:#fff}
+.composer{display:flex;gap:8px;padding-top:12px}
+.composer input{flex:1;background:#1B2C6E;border:1px solid #33449A;border-radius:999px;color:#fff;
+  padding:11px 16px;font-family:'Karla',sans-serif;font-size:.9rem;outline:none}
+.composer input::placeholder{color:#8FA0DB}
+.composer input:focus{border-color:var(--marigold)}
+.composer button{background:var(--marigold);border:none;border-radius:50%;width:44px;height:44px;cursor:pointer;
+  font-size:1.1rem;color:var(--ink);font-weight:700}
+.composer button:disabled{opacity:.5;cursor:default}
+
+section{padding:72px 0}
+.ruled{background:repeating-linear-gradient(to bottom, var(--paper), var(--paper) 34px, var(--line) 34px, var(--line) 35px)}
+h2{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.6rem,3vw,2.1rem);margin-bottom:10px}
+.sec-sub{color:#5A628C;max-width:56ch;margin-bottom:40px}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--marigold-deep);display:block;margin-bottom:10px}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.step{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;position:relative}
+.step .n{font-family:'IBM Plex Mono',monospace;color:var(--marigold-deep);font-size:.8rem;letter-spacing:.1em;margin-bottom:10px;display:block}
+.step h3{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:1.12rem;margin-bottom:8px}
+.step p{font-size:.94rem;color:#45507F}
+.step:not(:last-child)::after{content:"→";position:absolute;right:-19px;top:50%;transform:translateY(-50%);color:var(--marigold-deep);font-size:1.3rem;font-weight:700}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.t-card{background:var(--ink);color:var(--white);border-radius:var(--radius);padding:26px 22px}
+.t-card h3{font-family:'Baloo 2',sans-serif;font-size:1.08rem;margin-bottom:8px;color:var(--marigold)}
+.t-card p{font-size:.93rem;color:#C9D0EE}
+.t-card .mono{display:block;margin-top:14px;font-size:.72rem;background:#0E1840;border-radius:8px;padding:10px;color:#AEB8E4;font-family:'IBM Plex Mono',monospace}
+.cta-band{background:var(--ink);color:var(--white);text-align:center;border-radius:20px;padding:52px 28px;margin:0 24px}
+.cta-band h2{color:var(--white)}
+.cta-band p{color:#C9D0EE;margin-bottom:26px;max-width:560px;margin-left:auto;margin-right:auto}
+footer{padding:34px 24px 46px;text-align:center;color:#6A7199;font-size:.85rem}
+footer a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:2px solid var(--marigold)}
+.disclaimer{margin-top:8px;font-size:.78rem}
+@media (max-width:880px){
+  .hero{grid-template-columns:1fr;padding-top:44px}
+  .phone{margin:0 auto}
+  .flow,.trust{grid-template-columns:1fr}
+  .step:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-24px;transform:translateX(-50%)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="logo">Sahaayak<span class="dot">AI</span></div>
+    <a class="btn" href="#top">Try it live</a>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Meesho · Amazon India · Live demo</div>
+      <h1>Seller support docs mein <em>ghanton dhundhna</em> band karo.</h1>
+      <p class="sub">Returns, payment holds, listing errors — policy ka seedha jawab Hinglish mein,
+        official source ke saath. Aur claim ka ready draft, copy-paste ke liye.</p>
+      <div class="live-dot"><i></i> Ye demo asli hai — poochh ke dekho →</div>
+    </div>
+
+    <!-- LIVE chat: wired to the real agents via /api/chat -->
+    <div class="phone">
+      <div class="phone-top">
+        <div class="avatar">S</div>
+        <div>
+          <div class="name">SahaayakAI</div>
+          <div class="status">online · 3 agents behind this chat</div>
+        </div>
+      </div>
+      <div class="chat" id="chat">
+        <div class="msg bot">Namaste! 🙏 Main SahaayakAI hoon — Meesho aur Amazon India sellers ka assistant. Policy ka sawaal poochho, ya claim ka draft banwao. Hinglish ya English — dono chalega.</div>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip-btn">customer ne used product return kiya, kya karun?</button>
+        <button class="chip-btn">mera payment hold pe kyu hai?</button>
+        <button class="chip-btn">Draft a return claim, order ID MSH123</button>
+      </div>
+      <form class="composer" id="composer">
+        <input id="inp" type="text" placeholder="Apna sawaal likho…" autocomplete="off" maxlength="1000">
+        <button type="submit" id="send" aria-label="Send">➤</button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<section class="ruled" id="how">
+  <div class="wrap">
+    <span class="kicker">Kaise kaam karta hai</span>
+    <h2>Ek message, teen AI agents.</h2>
+    <p class="sec-sub">Har message pehle route hota hai, phir sahi agent handle karta hai — isliye jawab fast bhi hai aur bharosemand bhi.</p>
+    <div class="flow">
+      <div class="step">
+        <span class="n">STEP 1 — ROUTER</span>
+        <h3>Samajhta hai kya chahiye</h3>
+        <p>Aapka message padhkar decide karta hai: policy ka sawaal hai, draft banwana hai, ya kuch aur. Hinglish ho ya English — dono chalega.</p>
+      </div>
+      <div class="step">
+        <span class="n">STEP 2 — RETRIEVAL</span>
+        <h3>Official policy se jawab</h3>
+        <p>Meesho aur Amazon India ke seller policy documents mein se exact section dhundhta hai. Har jawab ke saath source ka naam — guess kabhi nahi.</p>
+      </div>
+      <div class="step">
+        <span class="n">STEP 3 — ACTION</span>
+        <h3>Ready draft banata hai</h3>
+        <p>Return dispute, payment-hold email, listing appeal — order details poochhkar complete draft deta hai jo seedha panel mein paste ho sake.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Bharosa</span>
+    <h2>Galat advice = paisa loss. Isliye teen pakke rules.</h2>
+    <p class="sec-sub">Chhote seller ke liye ek galat deadline bhi mehenga padta hai — bot isko seriously leta hai.</p>
+    <div class="trust">
+      <div class="t-card">
+        <h3>Har jawab ke saath source</h3>
+        <p>Policy ka har point official document ke section se aata hai — aap khud verify kar sakte ho, ya marketplace support ko dikha sakte ho.</p>
+        <span class="mono">📄 Source: Meesho Returns Policy / Compensation</span>
+      </div>
+      <div class="t-card">
+        <h3>Pata nahi = saaf bolega</h3>
+        <p>Agar official docs mein jawab nahi mila, to bot guess nahi karega — seedha bolega "official answer nahi mila" aur sahi jagah point karega.</p>
+        <span class="mono">bot&gt; Mujhe iska official policy answer nahi mila 🙏</span>
+      </div>
+      <div class="t-card">
+        <h3>Password/OTP kabhi nahi</h3>
+        <p>Bot kabhi password, OTP ya bank detail nahi maangta — aur agar aap bhej do, to warn karta hai. Drafts sirf suggestions hain; submit aap khud karte ho.</p>
+        <span class="mono">⚠️ Kabhi kisi ko OTP mat bhejna — bot ko bhi nahi</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ruled">
+  <div class="cta-band">
+    <h2>Telegram pe bhi available.</h2>
+    <p>Yahi assistant aapke phone pe — screenshots bhejo, feedback buttons, sab kuch. Pilot join karo, free.</p>
+    <a class="btn big" href="https://t.me/YOUR_BOT_USERNAME">Telegram pe shuru karo →</a>
+  </div>
+</section>
+
+<footer>
+  <div>Open source project — <a href="https://github.com/YOUR_USERNAME/sahaayak-ai">code on GitHub</a></div>
+  <div class="disclaimer">SahaayakAI is an independent tool, not affiliated with Meesho or Amazon. Drafts are suggestions — always review before submitting.</div>
+</footer>
+
+<script>
+(function(){
+  var chat = document.getElementById('chat');
+  var form = document.getElementById('composer');
+  var inp = document.getElementById('inp');
+  var send = document.getElementById('send');
+  var chips = document.getElementById('chips');
+
+  var chatId = localStorage.getItem('sahaayak_chat_id');
+  if (!chatId) {
+    chatId = 'u' + Math.random().toString(36).slice(2, 12);
+    localStorage.setItem('sahaayak_chat_id', chatId);
+  }
+
+  function esc(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+  function fmt(s){
+    return esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<i>$1</i>');
+  }
+  function add(role, text){
+    var m = document.createElement('div');
+    m.className = 'msg ' + role;
+    m.innerHTML = fmt(text);
+    chat.appendChild(m);
+    chat.scrollTop = chat.scrollHeight;
+    return m;
+  }
+  function typing(on){
+    var t = document.getElementById('t-ind');
+    if (on && !t){
+      t = document.createElement('div'); t.id='t-ind'; t.className='typing';
+      t.innerHTML='<i></i><i></i><i></i>'; chat.appendChild(t); chat.scrollTop = chat.scrollHeight;
+    } else if (!on && t){ t.remove(); }
+  }
+
+  function ask(text){
+    if (!text) return;
+    add('seller', text);
+    if (chips) { chips.remove(); chips = null; }
+    inp.value = ''; send.disabled = true; typing(true);
+    fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: chatId, message: text})
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){ typing(false); add('bot', d.reply || '…'); })
+    .catch(function(){ typing(false); add('bot', 'Server se connect nahi ho paya 😅 — check karo ki webapp.py chal raha hai.'); })
+    .finally(function(){ send.disabled = false; inp.focus(); });
+  }
+
+  form.addEventListener('submit', function(e){ e.preventDefault(); ask(inp.value.trim()); });
+  document.querySelectorAll('.chip-btn').forEach(function(b){
+    b.addEventListener('click', function(){ ask(b.textContent); });
+  });
+})();
+</script>
+</body>
+</html>

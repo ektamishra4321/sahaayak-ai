@@ -81,9 +81,8 @@ def extract(conversation_text: str) -> dict:
         max_tokens=300,
     )
     try:
-        raw = raw.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        return json.loads(raw)
-    except json.JSONDecodeError:
+        return llm.parse_json_block(raw)
+    except (ValueError, json.JSONDecodeError):
         return {"draft_type": None, "marketplace": None, "fields": {}}
 
 

@@ -159,8 +159,7 @@ def classify(text: str, ctx: ChatState) -> dict:
             model=config.ROUTER_MODEL,
             max_tokens=120,
         )
-        raw = raw.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        out = json.loads(raw)
+        out = llm.parse_json_block(raw)
         assert out.get("intent") in ("policy_query", "action_request", "other")
         return out
     except Exception:

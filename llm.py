@@ -10,22 +10,10 @@ never knows which provider is behind it.
 from __future__ import annotations
 
 import base64
-import json
-import re
 
 import httpx
 
 import config
-
-
-def parse_json_block(text: str) -> dict:
-    """Extract the first JSON object from LLM output, tolerating prose,
-    markdown fences, and trailing commentary (Gemini is chattier than Claude)."""
-    text = text.strip()
-    m = re.search(r"\{.*\}", text, re.S)
-    if not m:
-        raise ValueError(f"no JSON object in: {text[:80]!r}")
-    return json.loads(m.group(0))
 
 # ---------------------------------------------------------------- anthropic
 
@@ -64,72 +52,22 @@ def _to_gemini_contents(messages: list[dict]) -> list[dict]:
     return out
 
 
-_resolved_model: str | None = None
-
-
-def _resolve_gemini_model() -> str:
-    """Ask Google which models this key can use and pick the best Flash one.
-
-    Model names churn (2.0 retired, 2.5/3.x rollouts vary by account), so on a
-    404 we self-heal instead of hardcoding a name.
-    """
-    global _resolved_model
-    if _resolved_model:
-        return _resolved_model
-    r = httpx.get("https://generativelanguage.googleapis.com/v1beta/models",
-                  headers={"x-goog-api-key": config.GEMINI_API_KEY},
-                  params={"pageSize": 200}, timeout=30)
-    r.raise_for_status()
-    models = [m["name"].removeprefix("models/") for m in r.json().get("models", [])
-              if "generateContent" in m.get("supportedGenerationMethods", [])]
-    if not models:
-        raise RuntimeError("This Gemini key has no models supporting generateContent.")
-
-    def score(name: str) -> tuple:
-        n = name.lower()
-        return ("flash" in n,                      # prefer flash family (free tier)
-                "lite" not in n,                   # prefer full flash over lite
-                "preview" not in n and "exp" not in n,  # prefer stable
-                n)                                  # newest-ish by name sort
-    _resolved_model = sorted(models, key=score, reverse=True)[0]
-    return _resolved_model
-
-
-def _gemini_call(system: str, contents: list[dict], max_tokens: int,
-                 _model: str | None = None, _no_thinking_cfg: bool = False) -> str:
-    model = _model or _resolved_model or config.GEMINI_MODEL
-    gen_cfg = {"maxOutputTokens": max(max_tokens, 1200)}  # headroom: thinking eats budget
-    if not _no_thinking_cfg:
-        # disable internal "thinking" on models that support the knob: faster,
-        # cheaper, and prevents reasoning fragments leaking into replies
-        gen_cfg["thinkingConfig"] = {"thinkingBudget": 0}
+def _gemini_call(system: str, contents: list[dict], max_tokens: int) -> str:
     body = {
         "systemInstruction": {"parts": [{"text": system}]},
         "contents": contents,
-        "generationConfig": gen_cfg,
+        "generationConfig": {"maxOutputTokens": max_tokens},
     }
     r = httpx.post(
-        _GEMINI_URL.format(model=model),
+        _GEMINI_URL.format(model=config.GEMINI_MODEL),
         headers={"x-goog-api-key": config.GEMINI_API_KEY,
                  "Content-Type": "application/json"},
         json=body, timeout=60,
     )
-    if r.status_code == 404 and _model is None:
-        # model name not available on this account -> discover and retry once
-        return _gemini_call(system, contents, max_tokens,
-                            _model=_resolve_gemini_model(), _no_thinking_cfg=_no_thinking_cfg)
-    if r.status_code == 400 and not _no_thinking_cfg:
-        # model doesn't accept thinkingConfig -> retry without it
-        return _gemini_call(system, contents, max_tokens,
-                            _model=model, _no_thinking_cfg=True)
     r.raise_for_status()
     data = r.json()
     try:
-        parts = data["candidates"][0]["content"]["parts"]
-        text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
-        if not text.strip():
-            raise KeyError("empty")
-        return text
+        return "".join(p.get("text", "") for p in data["candidates"][0]["content"]["parts"])
     except (KeyError, IndexError):
         raise RuntimeError(f"Gemini returned no text (finishReason="
                            f"{data.get('candidates',[{}])[0].get('finishReason','?')})")
