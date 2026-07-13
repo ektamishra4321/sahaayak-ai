@@ -108,12 +108,17 @@ def _gemini_call(system: str, contents: list[dict], max_tokens: int,
         "contents": contents,
         "generationConfig": gen_cfg,
     }
-    r = httpx.post(
-        _GEMINI_URL.format(model=model),
-        headers={"x-goog-api-key": config.GEMINI_API_KEY,
-                 "Content-Type": "application/json"},
-        json=body, timeout=60,
-    )
+    def _post():
+        return httpx.post(
+            _GEMINI_URL.format(model=model),
+            headers={"x-goog-api-key": config.GEMINI_API_KEY,
+                     "Content-Type": "application/json"},
+            json=body, timeout=120,
+        )
+    try:
+        r = _post()
+    except (httpx.ReadTimeout, httpx.ConnectTimeout, httpx.RemoteProtocolError):
+        r = _post()   # slow networks happen; one automatic retry
     if r.status_code == 404 and _model is None:
         # model name not available on this account -> discover and retry once
         return _gemini_call(system, contents, max_tokens,
