@@ -3,3 +3,4 @@ chromadb>=0.5.0
 python-telegram-bot>=21.0
 python-dotenv>=1.0.0
 flask>=3.0
+gunicorn>=21.0
